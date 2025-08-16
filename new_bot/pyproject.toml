@@ -1,0 +1,129 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["."]
+
+[project]
+name = "strava-agent"
+version = "1.0.0"
+description = "AI-powered Strava running coach with Telegram bot interface"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [
+    {name = "Etqad Khan", email = "your.email@example.com"}
+]
+keywords = ["strava", "running", "ai", "coach", "telegram", "bot"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.11",
+]
+requires-python = ">=3.11,<3.13"
+dependencies = [
+    # Core dependencies
+    "python-telegram-bot>=20.7",
+    "langgraph>=0.2.16",
+    "langchain>=0.2.16",
+    "langchain-google-genai>=2.0.8",
+    "langchain-chroma>=0.2.0",
+    
+    # Data processing
+    "pandas>=2.1.0",
+    "numpy>=1.24.0",
+    
+    # API clients
+    "requests>=2.31.0",
+    
+    # Vector database
+    "chromadb>=0.4.0",
+    
+    # Environment and configuration
+    "python-dotenv>=1.0.0",
+    
+    # Visualization
+    "matplotlib>=3.8.0",
+    "seaborn>=0.13.0",
+    
+    # Utilities
+    "pydantic>=2.5.0",
+    "typing-extensions>=4.8.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest==7.4.3",
+    "black==23.12.1",
+    "flake8==6.1.0",
+    "mypy==1.8.0",
+    "pre-commit==3.6.0",
+]
+
+[project.scripts]
+strava-agent = "main:main"
+
+[project.urls]
+Homepage = "https://github.com/yourusername/strava-agent"
+Repository = "https://github.com/yourusername/strava-agent"
+Issues = "https://github.com/yourusername/strava-agent/issues"
+
+[dependency-groups]
+dev = [
+    "black>=23.12.1",
+]
+
+[tool.black]
+line-length = 88
+target-version = ['py311']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+)/
+'''
+
+[tool.flake8]
+max-line-length = 88
+extend-ignore = ["E203", "W503"]
+exclude = [
+    ".git",
+    "__pycache__",
+    "build",
+    "dist",
+    ".venv",
+    ".env",
+]
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_unreachable = true
+strict_equality = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-v --tb=short"
